@@ -1,4 +1,4 @@
-import asyncHandler from 'express-async-handler'; 
+import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 
@@ -22,9 +22,9 @@ const authUser = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
     // res.status(200).json({ message: 'Register User' });
-    
+
     console.log(req.body);
-    
+
     const { name, email, password } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -80,6 +80,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUserProfile = asyncHandler(async (req, res) => {
     // res.status(200).json({ message: 'Update User Profile' });
+    const user = await User.findById(req.user._id);
 
     if (user) {
         user.name = req.body.name || user.name;
@@ -101,7 +102,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     }
 });
-
 
 
 export { authUser, registerUser, logoutUser, getUserProfile, updateUserProfile };

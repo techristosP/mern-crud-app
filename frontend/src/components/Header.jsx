@@ -30,7 +30,7 @@ const Header = () => {
             <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand>MERN Auth</Navbar.Brand>
+                        <Navbar.Brand>VIP Events</Navbar.Brand>
                     </LinkContainer>
 
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -42,6 +42,11 @@ const Header = () => {
                                     <NavDropdown title={userInfo.name} id='username'>
                                         <LinkContainer to='/profile'>
                                             <NavDropdown.Item>Profile</NavDropdown.Item>
+                                        </LinkContainer>
+
+                                        {/* Additions */}
+                                        <LinkContainer to='/events'>
+                                            <NavDropdown.Item>Events</NavDropdown.Item>
                                         </LinkContainer>
                                         
                                         <NavDropdown.Item onClick={logoutHandler}>

@@ -1,10 +1,71 @@
-.test {
-  /* color: red; */
-  display: flex;
-  justify-content: center;
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-gap: 1em;
+  padding: 1em;
+  /* background-color: aqua; */
 }
 
+.event-container {
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+  background-color: beige;
+}
 
+.tt {
+  background-color: blueviolet;
+}
+
+#evName {
+  font-size: 2.5em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+#evDesc {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+#dateTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#evDate, #evTime {
+  font-size: 1em;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: blueviolet;
+}
+
+#event-control {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1em;
+}
+.bt {
+  padding: 0.6em 0.6em;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+}
+
+.modify {
+  background-color: cornflowerblue;
+}
+
+.cancel {
+  background-color: brown;
+}
+
+.cancel:hover, .modify:hover {
+  background-color: rosybrown;
+}
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

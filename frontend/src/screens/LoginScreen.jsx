@@ -22,7 +22,10 @@ const LoginScreen = () => {
     useEffect(() => {
         if (userInfo) {
             // console.log('userInfo', userInfo);
-            navigate('/');  
+            // navigate('/');  
+
+            //Additions
+            navigate('/events');
         }
     }, [navigate, userInfo]);
 
