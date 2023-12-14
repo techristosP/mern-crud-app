@@ -9,20 +9,20 @@ const createEvent = asyncHandler(async (req, res) => {
         email: req.user.email
     }
 
-    // console.log(req.body);
-
-    const { name, description, date, time, location } = req.body;
+    const { name, description, date, time, location, capacity } = req.body;
 
     const event = await Event.create({
         name,
         description,
         date,
         time,
-        location
-        // user
+        location,
+        capacity,
+        attendants: 0,
+        user: user._id
     });
-    console.log('New Event!');
-    // console.log(event);
+
+    console.log('New Event: ', event, ' by User: ', user);
 
     if (event) {
         res.status(201).json({
@@ -42,7 +42,7 @@ const createEvent = asyncHandler(async (req, res) => {
 });
 
 const updateEvent = asyncHandler(async (req, res) => {
-    const { _id, name, description, date, time, location } = req.body;
+    const { _id, name, description, date, time, location, capacity } = req.body;
 
     const event = await Event.findById(_id);
 
@@ -52,6 +52,7 @@ const updateEvent = asyncHandler(async (req, res) => {
         event.date = date;
         event.time = time;
         event.location = location;
+        event.capacity = capacity;
 
         const updatedEvent = await event.save();
 
@@ -61,7 +62,8 @@ const updateEvent = asyncHandler(async (req, res) => {
             description: updatedEvent.description,
             date: updatedEvent.date,
             time: updatedEvent.time,
-            location: updatedEvent.location
+            location: updatedEvent.location,
+            capacity: updatedEvent.capacity
         });
     } else {
         res.status(404);
@@ -69,10 +71,31 @@ const updateEvent = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteEvent = asyncHandler(async (req, res) => {
+    // console.log(req.body);
+    const _id = req.body._id;
+    const event = await Event.findById(_id);
+
+    if (event) {
+        await Event.deleteOne({_id});
+        res.status(200).json({ message: 'Event removed' });
+    }
+    else {
+        res.status(404);
+        throw new Error('Event not found');
+    }
+});
+
 const getEvents = asyncHandler(async (req, res) => {
     // res.status(200).json({ message: 'Get Events' });
-    const events = await Event.find({});
+    const user = {
+        _id: req.user._id,
+        name: req.user.name,
+        email: req.user.email
+    }
+
+    const events = await Event.find({ user: user._id });
     res.status(200).json(events);
 });
 
-export { createEvent, updateEvent, getEvents };
+export { createEvent, updateEvent, deleteEvent, getEvents };

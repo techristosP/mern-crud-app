@@ -17,6 +17,13 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        deleteEvent: builder.mutation({
+            query: (data) => ({
+                url: `${EVENTS_URL}/delete`,
+                method: 'DELETE',
+                body: data,
+            }),
+        }),
         getEvents: builder.mutation({
             query: () => ({
                 url: `${EVENTS_URL}`,
@@ -26,4 +33,4 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useCreateEventMutation, useUpdateEventMutation, useGetEventsMutation } = eventsApiSlice;
+export const { useCreateEventMutation, useUpdateEventMutation, useDeleteEventMutation, useGetEventsMutation } = eventsApiSlice;

@@ -4,7 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/authSlice';
+import { logout } from '../slices/authSlice';  
+import '../header.css'; 
 
 const Header = () => {
     const { userInfo } = useSelector((state) => state.auth);
@@ -26,8 +27,8 @@ const Header = () => {
 
 
     return (
-        <header>
-            <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+        <header className='hd'>
+            <Navbar variant='dark' expand='lg' collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand>VIP Events</Navbar.Brand>

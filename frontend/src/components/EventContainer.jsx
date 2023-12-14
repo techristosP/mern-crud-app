@@ -1,15 +1,21 @@
 import { Container, Row, Col } from "react-bootstrap";
 
 const EventContainer = ({ children }) => {
+    // return (
+    //     <Container>
+    //         <Row className='justify-content-md-center mt-5'>
+    //             <Col xs={12} md={6} className='card p-3 event-container'>
+    //                 {children}
+    //             </Col>
+    //         </Row>
+    //     </Container>
+    // )
+
     return (
-        <Container>
-            <Row className='justify-content-md-center mt-5'>
-                <Col xs={12} md={6} className='card p-5 event-container'>
-                    {children}
-                </Col>
-            </Row>
-        </Container>
-    
+        <div className="card p-3 event-container">
+            {children}
+        </div>
+
     )
 };
 

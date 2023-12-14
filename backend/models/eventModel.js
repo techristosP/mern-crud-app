@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const eventSchema = mongoose.Schema({
@@ -11,24 +12,28 @@ const eventSchema = mongoose.Schema({
     },
     date: {
         type: String,
-        required: true
+        required: false
     },
     time: {
         type: String,
-        required: true
+        required: false
     },
     location: {
         type: String,
         required: true
     },
+    capacity: {
+        type: Number,
+        required: true
+    },
     attendants: {
         type: Number,
         required: false
-    }
-    // user: {
-    //     type: Object,
-    //     required: true
-    // },
+    },
+    user: {
+        type: ObjectId,
+        required: true
+    },
 }, {
     timestamps: true
 });

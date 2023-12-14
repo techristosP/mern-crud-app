@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col, Container, Card } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EventContainer from '../components/EventContainer';
-import { useGetEventsMutation } from '../slices/eventsApiSlice';
-import { setCredentials } from '../slices/authSlice';
+import { useGetEventsMutation, useDeleteEventMutation } from '../slices/eventsApiSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 import '../index.css'
 import { FaSlidersH } from 'react-icons/fa';
-import { MdDateRange, MdDelete } from "react-icons/md";
+import { MdDateRange, MdDelete, MdOutlineReduceCapacity, MdPeopleAlt } from "react-icons/md";
 import { IoTime } from "react-icons/io5";
 import { HiLocationMarker } from "react-icons/hi";
 
@@ -20,7 +19,8 @@ const EventScreen = () => {
 
     const navigate = useNavigate();
 
-    const [getEvents, { isLoading }] = useGetEventsMutation();
+    const [getEvents] = useGetEventsMutation();
+    const [deleteEvent, { isLoading }] = useDeleteEventMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -43,15 +43,26 @@ const EventScreen = () => {
     const handleModifyBtn = (item) => {
         console.log(item);
         navigate('/update', {
-            state: item 
+            state: item
         });
+    }
+
+    const handleDeleteBtn = async (item) => {
+        try {
+            const res = await deleteEvent(item).unwrap();
+            toast.success('Event deleted successfully!');
+            fetchEvents();
+        }
+        catch (err) {
+            toast.error(err?.data?.message || err.error);
+        }
     }
 
     return (
         <div>
             <Container className='d-flex justify-content-center'>
                 <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75'>
-                    <h1 className='text-center'>{name}, welcome to the Event Manager</h1>
+                    <h1 className='text-center'>{name}, welcome to VIP Events!</h1>
                     <p className='text-center'>This is a simple app to manage events</p>
                     <Button className='btn btn-primary btn-lg' href='/create'>Add event</Button>
                 </Card>
@@ -60,25 +71,32 @@ const EventScreen = () => {
             <div className='event-grid'>
                 {events.map(item => (
                     <EventContainer key={item._id}>
-                        <div id='evName'>{item.name}</div>
+                        <div id='evName-evBtns'>
+                            <div id='evName'>{item.name}</div>
+                            <div id='evBtns'>
+                                <Button className='bt modify' onClick={() => handleModifyBtn(item)}><FaSlidersH /></Button>
+                                <Button className='bt delete' onClick={() => handleDeleteBtn(item)}><MdDelete /></Button>
+                            </div>
+                        </div>
                         <div id='evDesc'>{item.description}</div>
                         <div id='dateTime'>
                             <div id='evDate'><MdDateRange /> {item.date}</div>
                             <div id='evTime'><IoTime /> {item.time}</div>
                         </div>
                         <div id='evLoc'><HiLocationMarker /> {item.location}</div>
+                        <div><MdOutlineReduceCapacity /> Capacity: {item.capacity}</div>
+                        <div><MdPeopleAlt /> {item.attendants} attendants</div>
 
-                        <div id='event-control'>
-                            <Button className='bt modify' onClick={() => handleModifyBtn(item)}><FaSlidersH /></Button>
-                            <Button className='bt cancel'><MdDelete /></Button>
-                        </div>
 
                     </EventContainer>
                 ))
                 }
+
+                {isLoading && <Loader />}
             </div>
         </div>
     );
 };
 
 export default EventScreen;
+

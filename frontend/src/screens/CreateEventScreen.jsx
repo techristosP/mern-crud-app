@@ -14,20 +14,19 @@ const CreateEventScreen = () => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [location, setLocation] = useState('');
+    const [capacity, setCapacity] = useState('');
 
     // const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    // const { userInfo } = useSelector((state) => state.auth);
 
     const [createEvent, { isLoading }] = useCreateEventMutation();
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await createEvent({ name, description, date, time, location }).unwrap();            
+            const res = await createEvent({ name, description, date, time, location, capacity }).unwrap();            
             toast.success('Event created successfully!');
-            // navigate('/');
+            navigate('/');
         }
         catch (err) {
             toast.error(err?.data?.message || err.error);
@@ -92,6 +91,17 @@ const CreateEventScreen = () => {
                         placeholder='Enter location'
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}>
+                    </Form.Control>
+                </Form.Group>
+
+                {/* Capacity */}
+                <Form.Group className='my-2' controlId='capacity'>
+                    <Form.Label>Capacity</Form.Label>
+                    <Form.Control
+                        type='number'
+                        placeholder='Enter capacity'
+                        value={capacity}
+                        onChange={(e) => setCapacity(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
 
