@@ -71,7 +71,7 @@ const LoginScreen = () => {
                 { isLoading && <Loader />}
 
                 {/* Button */}
-                <Button type='submit' variant='primary' className='mt-3'>
+                <Button type='submit' variant='primary' className='mt-3 modify'>
                     Sign In
                 </Button>
 

@@ -38,7 +38,7 @@ const UpdateEventScreen = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await updateEvent({_id: event._id, name, description, date, time, location, capacity }).unwrap();            
+            const res = await updateEvent({ _id: event._id, name, description, date, time, location, capacity }).unwrap();
             toast.success('Event updated successfully!');
             navigate('/');
         }
@@ -133,13 +133,15 @@ const UpdateEventScreen = () => {
                 {isLoading && <Loader />}
 
                 {/* Button */}
-                <Button type='submit' variant='primary' className='mt-3'>
-                    Update Event
-                </Button>
+                <div className='updateBtns'>
+                    <Button type='submit' variant='primary' className='modify mt-3'>
+                        Update
+                    </Button>
 
-                <Button variant='secondary' className='delete mt-3' onClick={() => handleDeleteBtn(event)}>
-                    Delete Event
-                </Button>
+                    <Button variant='secondary' className='delete mt-3' onClick={() => handleDeleteBtn(event)}>
+                        Delete
+                    </Button>
+                </div>
 
             </Form>
         </FormContainer>

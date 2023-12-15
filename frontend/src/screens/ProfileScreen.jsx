@@ -15,7 +15,7 @@ const ProfileScreen = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -100,7 +100,7 @@ const ProfileScreen = () => {
                 {isLoading && <Loader />}
 
                 {/* Button */}
-                <Button type='submit' variant='primary' className='mt-3'>
+                <Button type='submit' variant='primary' className='mt-3 modify'>
                     Update
                 </Button>
 

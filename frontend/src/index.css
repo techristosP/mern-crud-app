@@ -38,7 +38,7 @@ body {
   /* margin-bottom: 0.5em; */
 }
 
-#evBtns {
+#evBtns, .updateBtns {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,16 +78,16 @@ body {
 }
 
 .modify {
-  background-color: cornflowerblue;
+  background-color: rgb(96,52,172);
 }
 
 .delete {
   background-color: brown;
 }
 
-.cancel:hover,
+.delete:hover,
 .modify:hover {
-  background-color: rosybrown;
+  background-color: rgba(31, 23, 44, 0.8);
 }
 
 /* :root {

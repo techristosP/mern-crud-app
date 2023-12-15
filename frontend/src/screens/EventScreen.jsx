@@ -19,8 +19,8 @@ const EventScreen = () => {
 
     const navigate = useNavigate();
 
-    const [getEvents] = useGetEventsMutation();
-    const [deleteEvent, { isLoading }] = useDeleteEventMutation();
+    const [getEvents, { isLoading }] = useGetEventsMutation();
+    const [deleteEvent] = useDeleteEventMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -64,7 +64,7 @@ const EventScreen = () => {
                 <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75'>
                     <h1 className='text-center'>{name}, welcome to VIP Events!</h1>
                     <p className='text-center'>This is a simple app to manage events</p>
-                    <Button className='btn btn-primary btn-lg' href='/create'>Add event</Button>
+                    <Button className='btn btn-primary btn-lg modify' href='/create'>Add event</Button>
                 </Card>
             </Container>
 
