@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Form, Button, } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
@@ -13,6 +12,7 @@ const UpdateEventScreen = () => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [duration, setDuration] = useState('');
     const [location, setLocation] = useState('');
     const [capacity, setCapacity] = useState('');
 
@@ -31,6 +31,7 @@ const UpdateEventScreen = () => {
         setDescription(event.description);
         setDate(event.date);
         setTime(event.time);
+        setDuration(event.duration);
         setLocation(event.location);
         setCapacity(event.capacity);
     }, [event]);
@@ -38,7 +39,7 @@ const UpdateEventScreen = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await updateEvent({ _id: event._id, name, description, date, time, location, capacity }).unwrap();
+            const res = await updateEvent({ _id: event._id, name, description, date, time, duration, location, capacity }).unwrap();
             toast.success('Event updated successfully!');
             navigate('/');
         }
@@ -57,6 +58,16 @@ const UpdateEventScreen = () => {
             toast.error(err?.data?.message || err.error);
         }
     };
+
+    const handleResetBtn = () => {
+        setName(event.name);
+        setDescription(event.description);
+        setDate(event.date);
+        setTime(event.time);
+        setDuration(event.duration);
+        setLocation(event.location);
+        setCapacity(event.capacity);
+    }
 
     return (
         <FormContainer>
@@ -108,6 +119,17 @@ const UpdateEventScreen = () => {
                     </Form.Control>
                 </Form.Group>
 
+                {/* Duration */}
+                <Form.Group className='my-2' controlId='duration'>
+                    <Form.Label>Duration</Form.Label>
+                    <Form.Control
+                        type='number' min='0'
+                        placeholder='Enter duration in minutes'
+                        value={duration}
+                        onChange={(e) => setDuration(e.target.value)}>
+                    </Form.Control>
+                </Form.Group>
+
                 {/* Location */}
                 <Form.Group className='my-2' controlId='location'>
                     <Form.Label>Location</Form.Label>
@@ -123,7 +145,7 @@ const UpdateEventScreen = () => {
                 <Form.Group className='my-2' controlId='capacity'>
                     <Form.Label>Capacity</Form.Label>
                     <Form.Control
-                        type='number'
+                        type='number' min='0'
                         placeholder='Enter capacity'
                         value={capacity}
                         onChange={(e) => setCapacity(e.target.value)}>
@@ -133,9 +155,13 @@ const UpdateEventScreen = () => {
                 {isLoading && <Loader />}
 
                 {/* Button */}
-                <div className='updateBtns'>
+                <div className='lineBtns'>
                     <Button type='submit' variant='primary' className='modify mt-3'>
                         Update
+                    </Button>
+
+                    <Button variant='secondary' className='delete mt-3' onClick={() => handleResetBtn()}>
+                        Reset
                     </Button>
 
                     <Button variant='secondary' className='delete mt-3' onClick={() => handleDeleteBtn(event)}>

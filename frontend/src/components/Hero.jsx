@@ -11,7 +11,7 @@ const Hero = () => {
                         With this app you can create, update and delete events and track who is attending.
                     </p>
                     <div className='d-flex'>
-                        <Button variant='primary' href='/login' className='me-3'>
+                        <Button variant='primary' href='/login' className='modify me-3'>
                             Sign In
                         </Button>
                         <Button variant='secondary' href='/register'>

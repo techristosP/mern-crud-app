@@ -10,7 +10,7 @@ const createEvent = asyncHandler(async (req, res) => {
         email: req.user.email
     }
 
-    const { name, description, date, time, location, capacity } = req.body;
+    const { name, description, date, time, duration, location, capacity } = req.body;
 
     if (await validateEvent(req)) {
         const event = await Event.create({
@@ -18,6 +18,7 @@ const createEvent = asyncHandler(async (req, res) => {
             description,
             date,
             time,
+            duration,
             location,
             capacity,
             attendants: 0,
@@ -31,6 +32,7 @@ const createEvent = asyncHandler(async (req, res) => {
                 description: event.description,
                 date: event.date,
                 time: event.time,
+                duration: event.duration,
                 location: event.location,
                 user: event.user
             });
@@ -49,7 +51,7 @@ const createEvent = asyncHandler(async (req, res) => {
 });
 
 const updateEvent = asyncHandler(async (req, res) => {
-    const { _id, name, description, date, time, location, capacity } = req.body;
+    const { _id, name, description, date, time, duration, location, capacity } = req.body;
 
     const event = await Event.findById(_id);
 
@@ -60,6 +62,7 @@ const updateEvent = asyncHandler(async (req, res) => {
             event.description = description;
             event.date = date;
             event.time = time;
+            event.duration = duration;
             event.location = location;
             event.capacity = capacity;
 
@@ -71,6 +74,7 @@ const updateEvent = asyncHandler(async (req, res) => {
                 description: updatedEvent.description,
                 date: updatedEvent.date,
                 time: updatedEvent.time,
+                duration: updatedEvent.duration,
                 location: updatedEvent.location,
                 capacity: updatedEvent.capacity
             });

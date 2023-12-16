@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';  
-import '../header.css'; 
+import '../compstyle.css'; 
+import logo from '../assets/favicon-32x32.png';
 
 const Header = () => {
     const { userInfo } = useSelector((state) => state.auth);
@@ -31,7 +32,7 @@ const Header = () => {
             <Navbar variant='dark' expand='lg' collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand>VIP Events</Navbar.Brand>
+                        <Navbar.Brand><img src={logo}></img> VIP Events</Navbar.Brand>
                     </LinkContainer>
 
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />

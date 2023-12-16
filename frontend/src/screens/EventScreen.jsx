@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col, Container, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Button, Container, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import EventContainer from '../components/EventContainer';
 import { useGetEventsMutation, useDeleteEventMutation } from '../slices/eventsApiSlice';
@@ -11,6 +11,7 @@ import { FaSlidersH } from 'react-icons/fa';
 import { MdDateRange, MdDelete, MdOutlineReduceCapacity, MdPeopleAlt } from "react-icons/md";
 import { IoTime } from "react-icons/io5";
 import { HiLocationMarker } from "react-icons/hi";
+import { GiDuration } from "react-icons/gi";
 
 
 const EventScreen = () => {
@@ -84,7 +85,8 @@ const EventScreen = () => {
                             <div id='evTime'><IoTime /> {item.time}</div>
                         </div>
                         <div id='evLoc'><HiLocationMarker /> {item.location}</div>
-                        <div><MdOutlineReduceCapacity /> Capacity: {item.capacity}</div>
+                        <div><GiDuration /> {item.duration} minutes</div>
+                        <div><MdOutlineReduceCapacity /> {item.capacity} capacity</div>
                         <div><MdPeopleAlt /> {item.attendants} attendants</div>
 
 

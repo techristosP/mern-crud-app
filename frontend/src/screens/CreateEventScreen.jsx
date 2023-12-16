@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
@@ -13,6 +12,7 @@ const CreateEventScreen = () => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [duration, setDuration] = useState('');
     const [location, setLocation] = useState('');
     const [capacity, setCapacity] = useState('');
 
@@ -21,10 +21,20 @@ const CreateEventScreen = () => {
 
     const [createEvent, { isLoading }] = useCreateEventMutation();
 
+    const resetForm = () => {
+        setName('');
+        setDescription('');
+        setDate('');
+        setTime('');
+        setDuration('');
+        setLocation('');
+        setCapacity('');
+    };
+
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await createEvent({ name, description, date, time, location, capacity }).unwrap();            
+            const res = await createEvent({ name, description, date, time, duration, location, capacity }).unwrap();
             toast.success('Event created successfully!');
             navigate('/');
         }
@@ -83,6 +93,17 @@ const CreateEventScreen = () => {
                     </Form.Control>
                 </Form.Group>
 
+                {/* Duration */}
+                <Form.Group className='my-2' controlId='duration'>
+                    <Form.Label>Duration</Form.Label>
+                    <Form.Control
+                        type='number' min='0'
+                        placeholder='Enter duration in minutes'
+                        value={duration}
+                        onChange={(e) => setDuration(e.target.value)}>
+                    </Form.Control>
+                </Form.Group>
+
                 {/* Location */}
                 <Form.Group className='my-2' controlId='location'>
                     <Form.Label>Location</Form.Label>
@@ -98,7 +119,7 @@ const CreateEventScreen = () => {
                 <Form.Group className='my-2' controlId='capacity'>
                     <Form.Label>Capacity</Form.Label>
                     <Form.Control
-                        type='number'
+                        type='number' min='0'
                         placeholder='Enter capacity'
                         value={capacity}
                         onChange={(e) => setCapacity(e.target.value)}>
@@ -108,9 +129,15 @@ const CreateEventScreen = () => {
                 {isLoading && <Loader />}
 
                 {/* Button */}
-                <Button type='submit' variant='primary' className='modify mt-3'>
-                    Create Event
-                </Button>
+                <div className='lineBtns'>
+                    <Button type='submit' variant='primary' className='modify mt-3'>
+                        Create Event
+                    </Button>
+
+                    <Button type='reset' variant='secondary' className='delete mt-3' onClick={resetForm}>
+                        Reset
+                    </Button>
+                </div>
 
             </Form>
         </FormContainer>

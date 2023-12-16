@@ -18,6 +18,10 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: false
     },
+    duration: {
+        type: Number,
+        required: false
+    },
     location: {
         type: String,
         required: true
