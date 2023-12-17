@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 
 import { useCreateEventMutation } from '../slices/eventsApiSlice';
+import { getCurrentDate } from '../utils/checkDate';
 
 const CreateEventScreen = () => {
     const [name, setName] = useState('');
@@ -75,7 +76,7 @@ const CreateEventScreen = () => {
                 <Form.Group className='my-2' controlId='date'>
                     <Form.Label>Date</Form.Label>
                     <Form.Control
-                        type='date'
+                        type='date' min={getCurrentDate()}
                         placeholder='Enter date'
                         value={date}
                         onChange={(e) => setDate(e.target.value)}>
