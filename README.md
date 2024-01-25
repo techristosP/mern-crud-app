@@ -1,14 +1,19 @@
 # VIP Events - MERN Stack CRUD App
 
-Welcome to **VIP Events**, a full-stack CRUD application developed using the MERN stack for managing and organizing various events like concerts, theater shows, and more!
+Welcome to **VIP Events**, a full-stack CRUD application developed using the MERN stack for managing and organizing various events like concerts, theater shows, and more! It uses Auth0 for user authentication and authorization with JWT token. Each user can update their profile information and view all events. Users can also create, update, and delete events that they have created.
 
 ## Features
+- **User Authentication:** Users can sign up and log in to the app using Auth0. Each user has a profile page where they can view and update their profile information.
 
-- **Create Events:** Easily add new events with details such as name, description, location, date, time, duration, total capacity, and current number of attendants.
+- **Create Events:** Easily add new events with details such as name, description, location, date, time, duration, and total capacity.
+
+- **View Events:** User can view all the events he has created in a grid. Each event card displays the event's information and the current number of attendants.
   
 - **Update Events:** Modify event information to keep it up-to-date.
 
 - **Delete Events:** Remove unnecessary or canceled events seamlessly.
+
+- **Event Overlap Checking:** Prevent users from creating events that overlap with each other by the same date, time and location.
 
 ## Tech Stack
 
